@@ -39,7 +39,7 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <EditText
-        android:id="@+id/editTextNumber"
+        android:id="@+id/numberInput"
         android:layout_width="363dp"
         android:layout_height="43dp"
         android:layout_marginStart="10dp"
@@ -72,7 +72,7 @@
         android:textColor="#FFF"
         android:backgroundTint="#3D5AFE"
         android:textSize="24sp"
-        android:id="@+id/button2"
+        android:id="@+id/playButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="284dp"
