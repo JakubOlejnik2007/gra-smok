@@ -12,6 +12,8 @@ import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
 
+    public int counter = 0;
+
     /**
      * The onCreate function sets up the main activity layout and handles the button click event to
      * check if the user has won against a dragon based on the input number.
@@ -35,9 +37,13 @@ public class MainActivity extends AppCompatActivity {
             if(!checkIsInputValid(numberInputValue)) {
                 message = "Wprowadzone dane są błędne! Liczba w polu powinna znajdować się w przedziale od 0 do 100";
             } else {
+                this.counter += 1;
                 int value = Integer.parseInt(numberInputValue);
-                boolean result = checkIfUserWon(value);
+                int randomNumber = getRandomNumber();
+                boolean result = value == randomNumber;
                 message = result ? "Udało Ci się pokonać smoka!" : "Nie udało Ci się pokonać smoka, musisz spróbować jeszcze raz.";
+                //message += "\nLicznik prób:\t" + this.counter;
+                //message += "\nWylosowana liczba:\t" + randomNumber;
             }
             handleDialog(message);
 
@@ -61,15 +67,9 @@ public class MainActivity extends AppCompatActivity {
         return valueFromInput >= 0 && valueFromInput <= 100;
     }
 
-    /**
-     * The function checks if the given value is equal to a randomly generated number between 0 and 99.
-     * 
-     * @param value The value parameter represents the user's guess.
-     * @return The method is returning a boolean value.
-     */
-    private boolean checkIfUserWon(int value) {
+    private int getRandomNumber() {
         Random random = new Random();
-        return value == random.nextInt(100);
+        return random.nextInt(100);
     }
 
     /**

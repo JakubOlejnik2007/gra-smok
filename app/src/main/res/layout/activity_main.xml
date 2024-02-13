@@ -51,6 +51,7 @@
         android:inputType="number"
         android:textColor="#000"
         android:background="#fff"
+        android:paddingHorizontal="15dp"
         android:hint="Podaj liczbę od 0 do 100"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
