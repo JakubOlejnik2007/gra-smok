@@ -78,7 +78,7 @@
         android:layout_marginTop="284dp"
         android:paddingHorizontal="60dp"
         android:text="Graj"
-        app:layout_constraintEnd_toEndOf="@+id/editTextNumber"
+        app:layout_constraintEnd_toEndOf="@+id/numberInput"
         app:layout_constraintTop_toTopOf="parent" />
 
 
