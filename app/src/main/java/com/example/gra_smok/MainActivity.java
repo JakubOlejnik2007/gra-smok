@@ -16,14 +16,15 @@ public class MainActivity extends AppCompatActivity {
     private String message;
     private int randomNumber;
 
+    
     /**
-     * The onCreate function sets up the main activity layout and handles the button click event to
-     * check if the user has won against a dragon based on the input number.
+     * The `onCreate` function sets up the main activity layout and handles the logic for the play
+     * button click event.
      * 
      * @param savedInstanceState The savedInstanceState parameter is a Bundle object that contains the
      * data saved from the previous state of the activity. It is used to restore the activity's
-     * previous state, such as when the activity is recreated after being destroyed and re-created by
-     * the system.
+     * previous state when it is recreated, such as after a configuration change (e.g., screen
+     * rotation) or when the activity is destroyed and recreated due to system constraints
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,6 +58,13 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * The function handles user input and checks if it matches a randomly generated number, providing
+     * appropriate feedback and updating the number of remaining tries.
+     * 
+     * @param value The value parameter represents the user's input, which is an integer value.
+     * @return The method is returning a boolean value.
+     */
     private boolean handleUserInsertValidInput(int value) {
         if(value == randomNumber) {
             this.message = "Udało Ci się pokonać smoka";
@@ -74,11 +82,11 @@ public class MainActivity extends AppCompatActivity {
 
 
     /**
-     * The function checks if the input value is valid by ensuring it is not empty and within the range
-     * of 0 to 100.
+     * The function checks if the input value is a non-empty string and a valid integer between 0 and
+     * 100.
      * 
-     * @param inputValue The inputValue parameter is a string that represents the input value that
-     * needs to be checked for validity.
+     * @param inputValue The inputValue parameter is a non-null String that represents the input value
+     * to be checked.
      * @return The method is returning a boolean value.
      */
     private boolean checkIsInputValid(@NonNull String inputValue) {
@@ -89,6 +97,10 @@ public class MainActivity extends AppCompatActivity {
         return valueFromInput >= 0 && valueFromInput <= 100;
     }
 
+    /**
+     * The getRandomNumber function generates a random number between 0 and 99 and assigns it to the
+     * instance variable randomNumber.
+     */
     private void getRandomNumber() {
         Random random = new Random();
         this.randomNumber = random.nextInt(100);
