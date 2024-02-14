@@ -12,7 +12,9 @@ import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
 
-    public int counter = 0;
+    private int triesCounter = 3;
+    private String message;
+    private int randomNumber;
 
     /**
      * The onCreate function sets up the main activity layout and handles the button click event to
@@ -33,23 +35,43 @@ public class MainActivity extends AppCompatActivity {
 
         playButton.setOnClickListener(view -> {
             String numberInputValue = numberInput.getText().toString().trim();
-            String message;
             if(!checkIsInputValid(numberInputValue)) {
-                message = "Wprowadzone dane są błędne! Liczba w polu powinna znajdować się w przedziale od 0 do 100";
+                this.message = "Wprowadzone dane są błędne! Liczba w polu powinna znajdować się w przedziale od 0 do 100";
             } else {
-                this.counter += 1;
-                int value = Integer.parseInt(numberInputValue);
-                int randomNumber = getRandomNumber();
-                boolean result = value == randomNumber;
-                message = result ? "Udało Ci się pokonać smoka!" : "Nie udało Ci się pokonać smoka, musisz spróbować jeszcze raz.";
-                //message += "\nLicznik prób:\t" + this.counter;
-                //message += "\nWylosowana liczba:\t" + randomNumber;
+                boolean result = handleUserInsertValidInput(Integer.parseInt(numberInputValue));
+
+                if(!result && this.triesCounter == 0) {
+                    this.message += "\n\nLiczba jaką należało wpisać to:\t" + this.randomNumber + "\n\nSpróbuj od nowa\npokonać smoka";
+                }
+
+                if(result || this.triesCounter == 0) {
+                    this.triesCounter = 3;
+                    getRandomNumber();
+                };
+
             }
-            handleDialog(message);
+
+            handleDialog(this.message);
 
         });
 
     }
+
+    private boolean handleUserInsertValidInput(int value) {
+        if(value == randomNumber) {
+            this.message = "Udało Ci się pokonać smoka";
+            return true;
+        }
+
+        this.message = "Nie udało Ci się pokonać smoka, musisz spróbować jeszcze raz.";
+        this.triesCounter -= 1;
+        this.message += "\n\n";
+        this.message += value > this.randomNumber ? "Oczekiwana liczba jest mniejsza od wprowadzonej" : "Oczekiwana liczba jest większa od wprowadzonej";
+        this.message += "\nPozostało prób:\t" + this.triesCounter;
+
+        return false;
+    }
+
 
     /**
      * The function checks if the input value is valid by ensuring it is not empty and within the range
@@ -67,9 +89,9 @@ public class MainActivity extends AppCompatActivity {
         return valueFromInput >= 0 && valueFromInput <= 100;
     }
 
-    private int getRandomNumber() {
+    private void getRandomNumber() {
         Random random = new Random();
-        return random.nextInt(100);
+        this.randomNumber = random.nextInt(100);
     }
 
     /**
